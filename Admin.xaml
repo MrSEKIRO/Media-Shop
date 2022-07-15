@@ -1,0 +1,313 @@
+﻿<Window x:Class="HW6.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HW6"
+        mc:Ignorable="d"
+        Title="Admin" Height="500" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="styleAdmin_main_buttons" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF4EDD10"/>
+                        <GradientStop Color="#FFBFFFA3" Offset="0.772"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Button x:Name="btnADD" Content="ADD" Margin="9,17,4,17" Padding="15,10" Click="btnADD_Click" Style="{DynamicResource styleAdmin_main_buttons}" Background="#FFDDDDDD" FontWeight="Bold"/>
+                <Button x:Name="btnDELETE" Content="DELETE" Margin="9,17,4,17" Padding="15,10" Click="btnDELETE_Click" Style="{DynamicResource styleAdmin_main_buttons}" Background="#FFDDDDDD" FontWeight="Bold"/>
+                <Button x:Name="btnSEARCH" Content="SEARCH" Margin="9,17,4,17" Padding="15,10" Click="btnSEARCH_Click" Style="{DynamicResource styleAdmin_main_buttons}" Background="#FFDDDDDD" FontWeight="Bold"/>
+                <Button x:Name="btnSHOWCUSTOMERS" Content="SHOWCUSTOMERS" Margin="9,17,4,17" Padding="0,10" Click="btnSHOWCUSTOMERS_Click" Style="{DynamicResource styleAdmin_main_buttons}" Background="#FFDDDDDD" FontWeight="Bold"/>
+                <Button x:Name="btnCHANGEPASS" Content="CHANGEPASS" Margin="9,17,4,17" Padding="0,10" Click="btnCHANGEPASS_Click" Style="{DynamicResource styleAdmin_main_buttons}" Background="#FFDDDDDD" FontWeight="Bold"/>
+                <Button x:Name="btnAdminExit" Content="Exit" Margin="9,17,4,17" Padding="15,10" Click="btnAdminExit_Click" Style="{DynamicResource styleAdmin_main_buttons}" Background="#FFDDDDDD" FontWeight="Bold"/>
+            </StackPanel>
+            <TabControl x:Name="TabctrlAdmin" Grid.Column="1" FontFamily="Segoe UI Semibold" Margin="1,0,-1.4,0.4">
+                <TabItem x:Name="TabAdmin_welcom" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="Admin_welcom.jpg"/>
+                        </Grid.Background>
+                        <Label x:Name="lblWelcom" Content="Welcom ..."  Margin="37,86,10,289.4" FontSize="48" Foreground="#FFC8FFDC" FontFamily="Forte"/>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="TabADD" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="2.5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Choose your media type:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="#FF208C31" />
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnMagazine" Grid.Column="0" Content="Magazine" Margin="34,14,31.4,13.2" Click="btnMagazine_Click" BorderBrush="#FF45FA16" Background="#FF2D8E00" FontSize="20" FontFamily="Showcard Gothic"/>
+                            <Button x:Name="btnBook" Grid.Column="1" Content="Book" Margin="30.6,15,28.6,14.2" Click="btnBook_Click" BorderBrush="#FF40FF0F" Background="{x:Null}" FontSize="20" FontFamily="Showcard Gothic" />
+                            <Button x:Name="btnVideo" Grid.Column="2" Content="Video" Margin="21.4,15,28,14.2" Click="btnVideo_Click" Background="{x:Null}" BorderBrush="#FF40FF0F" FontSize="20" FontFamily="Showcard Gothic"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Name:" Margin="178,10,7.4,-0.4" FontFamily="Sylfaen" FontSize="16" />
+                            <TextBox x:Name="txtboxName" Grid.Column="1"  Margin="9.6,14,161,5.6"/>
+                        </Grid>
+
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Id:" Margin="178,10,8.4,-0.4" FontFamily="Sylfaen" FontSize="16"/>
+                            <TextBox x:Name="txtboxADD_Id" Grid.Column="1"  Margin="9.6,14,162,5.6"/>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Price:" Margin="178,10,7.4,-0.4" FontFamily="Sylfaen" FontSize="16"/>
+                            <TextBox x:Name="txtboxPrice" Grid.Column="1"  Margin="9.6,14,165,5.6"/>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblADD_Info1" Grid.Column="0" Content="info1:" Margin="178,10,6.4,-0.4" FontFamily="Sylfaen" FontSize="16"/>
+                            <TextBox x:Name="txtboxInfo1" Grid.Column="1"  Margin="9.6,14,164,5.6"/>
+                        </Grid>
+
+                        <Grid Grid.Row="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblADD_Info2" Grid.Column="0" Content="info2:" Margin="178,10,386,-0.4" Grid.ColumnSpan="2" FontFamily="Sylfaen" FontSize="16"/>
+                            <TextBox x:Name="txtboxInfo2" Grid.Column="1"  Margin="9.6,14,166,5.6"/>
+                        </Grid>
+
+                        <Grid Grid.Row="7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnADD_add" Grid.Column="0" Content="Add" BorderThickness="2.5" Margin="216,10,21,9.8" Click="btnADD_add_Click" Background="#FFE8FFD2" BorderBrush="#FF128800" FontWeight="Bold" FontSize="14"/>
+                                <Button x:Name="btnADD_clear" Grid.Column="1" Content="Clear" BorderThickness="1" Margin="0,10,240,9.8" RenderTransformOrigin="0.5,0.503" Click="btnADD_clear_Click" Background="{x:Null}" BorderBrush="#FF128800"/>
+                            </Grid>
+                            <Label x:Name="lblADD_resualt" Grid.Row="1" Content="" Margin="181,5.2,201,20.8" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="TabDELETE" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Enter ID of Media you want delete:" Margin="145,101,125,41.2" FontSize="24" FontWeight="Bold" FontFamily="Segoe UI Semilight"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="ID" Margin="235,31,3.4,41" FontFamily="Sylfaen" FontSize="16"/>
+                            <TextBox x:Name="txtboxDelete" Grid.Column="1" Margin="9.6,32,187,40" />
+                        </Grid>
+                        <Button x:Name="btnDel_Delete" Grid.Row="1" Content="Delete" BorderThickness="2.5" Margin="247,91.8,264,48.2" Grid.RowSpan="2" Click="btnDel_Delete_Click" Background="{x:Null}" BorderBrush="#FF128800" FontSize="20" FontWeight="Bold"/>
+                        <Label x:Name="lblDel_resualt" Grid.Row="3" Content="" Margin="214,9.8,223,55.4" Foreground="#FFDC0E0E" />
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="TabSEARCH" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Search Engine" Margin="202,36,202,3" FontSize="36"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="ID" Margin="232,42,0.4,26" FontSize="16" FontFamily="Sylfaen"/>
+                            <TextBox x:Name="txtboxSearch" Grid.Column="1" Margin="9.6,42,179,26" />
+                        </Grid>
+                        <Button x:Name="btnSEARCH_Search" Grid.Row="2" Content="Search" BorderThickness="3" Margin="242,13,269,25.2" Click="btnSEARCH_Search_Click" FontSize="22" FontWeight="Bold" Background="{x:Null}" BorderBrush="#FF128800"/>
+                        <Label x:Name="lblSearch_resualt" Grid.Row="3" Content="" Margin="179,1.8,153,39.4" FontFamily="Sylfaen" FontWeight="Bold" />
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="TabSHOWCUSTOMERS" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height=".05*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width=".05*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Name"/>
+                            <TextBlock Grid.Column="1" Text="Info"/>
+                        </Grid>
+                        <Grid Grid.Row="1" >
+                            <ScrollViewer>
+                                <ItemsControl ItemsSource="{Binding costumers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding Info1}"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Info2}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="TabCHANGEPASS" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="lblPassword_LastTime" Grid.Row="0" Margin="191,21,197,25"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Password" Margin="163,26,27.4,24.8"/>
+                            <TextBox x:Name="txtboxChangepass_Password" Grid.Column="1" Margin="24.6,22,202,28.8"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="New Password" Margin="148,26,27.4,24.8"/>
+                            <TextBox x:Name="txtboxChangepass_NewPass" Grid.Column="1" Margin="24.6,22,202,28.8"/>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Confirm New Password
+                                       " Margin="121,26,10.4,25"/>
+                            <TextBox x:Name="txtboxChangepass_Confirmpass" Grid.Column="1" Margin="24.6,22,202,29"/>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnChangePass_Submit" Grid.Column="0" Content="Submit" BorderThickness="2.5" Margin="157,16,31,16.8" Click="Button_Click_1" FontSize="22" FontWeight="Bold" BorderBrush="#FF128800" Background="#FFDFFFD5"/>
+                                <Button x:Name="btnChangePass_Clear" Grid.Column="1" Content="Clear" BorderThickness="1" Margin="10,16,176,16.8" Click="btnChangePass_Clear_Click" FontSize="18" Background="{x:Null}" BorderBrush="#FF128800"/>
+                            </Grid>
+                        </Grid>
+
+                        <Label x:Name="lblPass_NowTime" Grid.Row="5" Margin="146,21.6,151,23.4"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
